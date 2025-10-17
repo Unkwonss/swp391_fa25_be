@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,9 +22,13 @@ public class Listing {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-    @Column(name = "Title", nullable = false)
+
+    @OneToMany(mappedBy = "listingId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
+
+    @Column(name = "Title", nullable = false,columnDefinition = "NVARCHAR(255)")
     private String title;
-    @Column(name = "Description", nullable = false)
+    @Column(name = "Description", nullable = false,columnDefinition = "NVARCHAR(255)")
     private String description;
     @Column(name = "Brand", nullable = true)
     private String brand;
@@ -38,10 +44,10 @@ public class Listing {
     @Column(name = "Seat", nullable = true)
 
     private Integer seats;
-    @Column(name = "Vehicle_type", nullable = true)
+    @Column(name = "Vehicle_type", nullable = true,columnDefinition = "NVARCHAR(255)")
 
     private String vehicleType;
-    @Column(name = "Color", nullable = true)
+    @Column(name = "Color", nullable = true,columnDefinition = "NVARCHAR(255)")
 
     private String color;
     @Column(name = "Mileage", nullable = true)
@@ -65,9 +71,11 @@ public class Listing {
 
     @Column(name = "Price",nullable = false)
     private Double price;
-    @Column(name = "Contract",nullable = false)
+    @Column(name = "Contact",nullable = false)
+    private String contact;
+    @Column(name = "City", columnDefinition = "NVARCHAR(100)")
+    private String city;
 
-    private String contract;
     @Enumerated(EnumType.STRING)
     private ListingStatus status;
     @Column(name = "Create_At",nullable = false)

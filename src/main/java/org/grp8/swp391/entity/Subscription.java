@@ -16,21 +16,21 @@ public class Subscription {
     @Column(name = "sub_id")
     private Long subId;
 
-    @Column(name = "sub_name", nullable = false)
+    @Column(name = "sub_name", nullable = false,columnDefinition = "NVARCHAR(255)")
     private String subName;
 
-    @Column(name = "sub_detail", nullable = false)
+    @Column(name = "sub_detail", nullable = false,columnDefinition = "NVARCHAR(255)")
     private String subDetails;
 
     @Column(name = "sub_price", nullable = false)
     private String subPrice;
 
     @Column(name = "duration", nullable = false)
-    private String duration;
+    private int duration;
     @Column(name = "priority_level", nullable = false)
     private int priorityLevel;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
 }

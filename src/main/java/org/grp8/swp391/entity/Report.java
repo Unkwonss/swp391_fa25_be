@@ -12,7 +12,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Report {
+public class
+Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
@@ -22,7 +23,7 @@ public class Report {
     @ManyToOne
     @JoinColumn(name = "reporter_id", nullable = false)
     private User reporter;
-    @Column(name = "Reason", nullable = false)
+    @Column(name = "Reason", nullable = false,columnDefinition = "NVARCHAR(255)")
     private String reason;
     @Column(name = "Status", nullable = false)
     private ReportedStatus status;

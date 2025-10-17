@@ -16,15 +16,14 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-    @ManyToOne
-    @JoinColumn(name = "listing_id", nullable = false)
-    private Listing listing;
+
     @ManyToOne
     @JoinColumn(name = "reviewer", nullable = false)
     private User reviewer;
     @ManyToOne
     @JoinColumn(name = "reviewd_user", nullable = false)
     private User reviewedUser;
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String comment;
     private int rate;
     @Temporal(TemporalType.TIMESTAMP)

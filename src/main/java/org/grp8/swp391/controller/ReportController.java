@@ -5,6 +5,7 @@ import org.grp8.swp391.entity.ReportedStatus;
 import org.grp8.swp391.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ReportController {
     private ReportService reportService;
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<?> findReportById(@PathVariable Long id){
         try{
             Report re = reportService.findByReportId(id);
@@ -45,6 +46,16 @@ public class ReportController {
         Report updated = reportService.updateReport(reportId, report);
         return ResponseEntity.ok(updated);
     }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/status/{reportId}")
+    public ResponseEntity<?> updateReportStatus(@PathVariable Long reportId, ReportedStatus status){
+        try {
+            Report report = reportService.updateReportStatus(reportId, status);
+            return ResponseEntity.ok().body(report);
+        }catch(RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
     @PostMapping("/create")
     public ResponseEntity<?> createReport(@RequestBody Report report){
@@ -52,7 +63,7 @@ public class ReportController {
         return ResponseEntity.ok().body(re);
     }
 
-    @GetMapping("/{status}")
+    @GetMapping("/status/{status}")
     public ResponseEntity<?> getReportStatus(@PathVariable ReportedStatus status){
         List<Report> re = reportService.getReportsByStatus(status);
         return ResponseEntity.ok().body(re);
